@@ -5,7 +5,7 @@ import { layers } from '../data/layers'
 import styles from './Home.module.css'
 
 const IMG_HEIGHT = 420   // natural height at 560px wide (2160×1620 source)
-const REST_MB   = -410   // ~10px visible gap at rest
+const REST_MB   = -428   // ~10px visible gap at rest
 const HOVER_MB  = -374   // ~46px visible gap when spread
 const HIT_HEIGHT = 68    // height of the invisible click zone per ingredient
 
@@ -34,8 +34,9 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, delay: 0.1 }}
       >
-        <h1 className={styles.name}>My Portfolio</h1>
-        <p className={styles.tagline}>Hover to explore · Click to dive in</p>
+        <h1 className={styles.name}>Morgan Weltzer</h1>
+        <p className= {styles.tagline}>Let's Get Cookin</p>
+       {/* <p className={styles.tagline}>Hover to explore · Click to dive in</p>*/}
       </motion.div>
 
       <div className={styles.scene}>
