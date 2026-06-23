@@ -15,7 +15,7 @@ export const layers = [
     image: '/projects.png',
     accentColor: '#7A3010',
     textColor: '#fff',
-    subtitle: 'Things I\'ve built',
+    subtitle: 'The meat of my portfolio',
     labelTopPct: 25,
     content: {
       type: 'projects',
@@ -61,7 +61,7 @@ export const layers = [
   },
   {
     id: 'site-details',
-    displayName: 'Site Details',
+    displayName: 'About this Site',
     isBread: false,
     image: '/site-details.png',
     accentColor: '#C07800',
@@ -70,7 +70,13 @@ export const layers = [
     labelTopPct: 57,
     content: {
       type: 'site-details',
-      description: "This portfolio was built as an interactive sandwich — each layer a different section of my work and life. Made with React, Framer Motion, and hand-painted illustrations.",
+      punchline: 'Taking Hamburger Menus to a New Level',
+      description: [
+        "Feels like developers are stuck picking a side these days: AI or human, pick one. I don't buy it. I think you can have both.",
+        "This site is kind of my proof of concept for that. I wanted to show that AI doesn't have to elbow the human stuff out - it can actually make it better. So this is a mashup: code I wrote myself, doodles I drew by hand, and a bit of AI help mixed in to keep things moving.",
+        "Honestly, I've had this idea sitting in a notebook (mental or otherwise) for a long time. I just never had the time to actually build it. That changed once I started using Claude as a kind of personal assistant. It let me speedrun through the boring parts so I could actually get to the fun, creative stuff.",
+        "So no, AI's not replacing the developer. If anything, it's just giving them more room to build the weird, personal things they've always wanted to.",
+      ],
       stack: ['React', 'Framer Motion', 'Vite', 'CSS Modules'],
     },
   },

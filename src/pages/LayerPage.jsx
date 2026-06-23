@@ -82,14 +82,23 @@ function LayerContent({ layer }) {
     return (
       <>
         <p className={styles.sectionLabel}>About This Site</p>
-        <motion.p
-          className={styles.bio}
+        <motion.h2
+          className={styles.punchline}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.42 }}
+        >
+          {content.punchline}
+        </motion.h2>
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.45 }}
         >
-          {content.description}
-        </motion.p>
+          {content.description.map((para, i) => (
+            <p key={i} className={styles.bio}>{para}</p>
+          ))}
+        </motion.div>
         <motion.div
           className={styles.stackList}
           initial={{ opacity: 0, y: 16 }}

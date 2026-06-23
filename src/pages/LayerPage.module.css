@@ -183,6 +183,20 @@
 }
 
 /* Site details */
+.punchline {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: #2C1A0E;
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+
+.bio + .bio {
+  margin-top: 18px;
+}
+
 .stackList {
   display: flex;
   flex-wrap: wrap;
