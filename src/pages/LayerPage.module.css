@@ -258,7 +258,7 @@
 
 .staffCard {
   background: #FBF5EC;
-  max-width: 500px;
+  max-width: 580px;
   width: 100%;
   box-shadow:
     0 4px 0 rgba(44, 26, 14, 0.14),
@@ -330,6 +330,73 @@
   font-size: 16px;
   line-height: 1.75;
   color: #3A2510;
+}
+
+.staffSectionLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #B08050;
+  margin-bottom: 14px;
+}
+
+.staffEntry {
+  padding: 12px 0;
+  border-bottom: 1px dashed rgba(44, 26, 14, 0.12);
+}
+
+.staffEntry:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.staffEntryTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+
+.staffEntryTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: #2C1A0E;
+  letter-spacing: -0.3px;
+}
+
+.staffEntryDates {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  color: rgba(44, 26, 14, 0.45);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.staffEntryCompany {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.staffEntryList {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #7A5C3A;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.staffEntryList li {
+  margin-bottom: 4px;
+}
+
+.staffEntryList li:last-child {
+  margin-bottom: 0;
 }
 
 .staffFooter {

@@ -21,7 +21,7 @@ export const layers = [
       type: 'projects',
       items: [
         { title: 'Deweys Online Ordering', desc: 'Served as one of three full-stack developers on an online ordering website for Deweys Pizza.', tech: ['React', 'C#', 'Azure', '.Net', 'mySQL'], link: 'https://order.deweyspizza.com/menu?store=clifton-oh&method=Pickup' },
-        { title: 'Music Social Media Platform', desc: 'A full-stack web app designed to share music with friends, follow other music listeners, and discover new music. Awarded second place in the University of Cincinnati Engineering Expo.', tech: ['Python', 'react', 'Azure', 'mySQL'], link: 'https://github.com/NoahGarfunkel/MusicSharingFrontEnd' },
+        { title: 'Music Social Media Platform', desc: 'A full-stack web app designed to share music with friends, follow other music listeners, and discover new music. Awarded second place in the University of Cincinnati Engineering Expo 2024.', tech: ['Python', 'React', 'Azure', 'mySQL'], link: 'https://github.com/NoahGarfunkel/MusicSharingFrontEnd' },
         { title: 'Azelo', desc: 'Served as one of two full-stack developers on a HIPPA compliant app for speech pathologists. Designed to dedicate a space for speech pathologists to keep records, documents, and communicate with their patients in a secure and easy way', tech: ['Vue.js', 'C#', 'Azure', 'mySQL'], link: 'https://azelo.app/Identity/Account/Login?ReturnUrl=%2F' },
       ],
     },
@@ -37,7 +37,54 @@ export const layers = [
     labelTopPct: 36,
     content: {
       type: 'about',
-      bio: "I'm a designer & developer who loves building things that feel alive. I care deeply about craft, interaction, and making the web a more interesting place.",
+      bio: "I'm a designer & developer who loves building things that feel alive. I care deeply about creativity, interaction, and designing applications centered around humans. ",
+      experience: [
+        {
+          role: 'Senior Technical Analyst',
+          company: 'AMEND Consulting — Cincinnati, OH',
+          dates: 'July 2025 – Present',
+          bullets: [
+            'Led discovery and delivery support for two enterprise modernization initiatives at $2B+ corporations',
+            'Used data analysis to drive client on-time delivery from 73% to 97%',
+            'Modernized a legacy application to create a net savings of $1.5M annually',
+            'Served as lead frontend developer and UI designer for an enterprise app modernization initiative',
+            'Built solutions in Power Apps, Power Automate, and C# with custom API integrations',
+            'Utilized Power BI and SQL to centralize KPI reporting and monitor rollout impact',
+          ],
+        },
+        {
+          role: 'Software Developer',
+          company: 'Seven Hills Technology Solutions — Sharonville, OH',
+          dates: 'July 2024 – July 2025',
+          bullets: [
+            'Backend developed three .NET web apps with C# and React to streamline order and payment workflows',
+            'Engineered systems powering a restaurant chain with 190,000+ monthly customers and 10,000+ weekly orders',
+            'Built a production tracking tool improving wait time accuracy by 62%',
+            'Supported a HIPAA-compliant healthcare platform serving 60+ private practices',
+            'Integrated 7+ third-party APIs, enhancing product capabilities and reducing manual workflows',
+          ],
+        },
+        {
+          role: 'Mobile & Web Developer Intern',
+          company: 'Kroger Technology Digital — Cincinnati, OH',
+          dates: 'May 2022 – May 2023',
+          bullets: [
+            'Generated $7M in annual savings through the creation of a new user-facing feature',
+            'Served as Feature Lead for a new app page on Kroger\'s Android fulfillment app (Kotlin)',
+            'Built two UI features deployed to 2,000+ Kroger stores on the progressive web app (React)',
+            'Conducted A/B testing in beta stores to create data-driven decisions on user-facing features',
+            'Utilized emerging generative AI to develop intelligent virtual assistants',
+          ],
+        },
+      ],
+      education: [
+        {
+          degree: 'B.S. Computer Science',
+          school: 'University of Cincinnati — College of Engineering and Applied Science',
+          dates: 'July 2024',
+          bullets: [],
+        },
+      ],
     },
   },
   {

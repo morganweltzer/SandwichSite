@@ -84,6 +84,70 @@ function AboutContent({ layer }) {
           <div className={styles.staffRole}>Designer & Developer</div>
           <hr className={styles.staffDivider} />
           <p className={styles.staffBio}>{content.bio}</p>
+
+          {content.experience?.length > 0 && (
+            <>
+              <hr className={styles.staffDivider} />
+              <div className={styles.staffSectionLabel}>Work Experience</div>
+              {content.experience.map((job, i) => (
+                <motion.div
+                  key={i}
+                  className={styles.staffEntry}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: 0.55 + i * 0.1 }}
+                >
+                  <div className={styles.staffEntryTop}>
+                    <span className={styles.staffEntryTitle}>{job.role}</span>
+                    <span className={styles.staffEntryDates}>{job.dates}</span>
+                  </div>
+                  <div
+                    className={styles.staffEntryCompany}
+                    style={{ color: layer.accentColor }}
+                  >
+                    {job.company}
+                  </div>
+                  {job.bullets?.length > 0 && (
+                    <ul className={styles.staffEntryList}>
+                      {job.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                    </ul>
+                  )}
+                </motion.div>
+              ))}
+            </>
+          )}
+
+          {content.education?.length > 0 && (
+            <>
+              <hr className={styles.staffDivider} />
+              <div className={styles.staffSectionLabel}>Education</div>
+              {content.education.map((edu, i) => (
+                <motion.div
+                  key={i}
+                  className={styles.staffEntry}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: 0.65 + i * 0.1 }}
+                >
+                  <div className={styles.staffEntryTop}>
+                    <span className={styles.staffEntryTitle}>{edu.degree}</span>
+                    <span className={styles.staffEntryDates}>{edu.dates}</span>
+                  </div>
+                  <div
+                    className={styles.staffEntryCompany}
+                    style={{ color: layer.accentColor }}
+                  >
+                    {edu.school}
+                  </div>
+                  {edu.bullets?.length > 0 && (
+                    <ul className={styles.staffEntryList}>
+                      {edu.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                    </ul>
+                  )}
+                </motion.div>
+              ))}
+            </>
+          )}
         </div>
         <div className={styles.staffFooter}>
           <div className={styles.staffBarcode} aria-hidden="true">
@@ -180,7 +244,7 @@ function ContactContent({ layer }) {
               <span>CONTACT CARD</span><span>TABLE FOR 1</span>
             </div>
             <div className={styles.metaRow}>
-              <span>09/07/2001</span><span>OPEN 24/7</span>
+              <span>859-640-6943</span><span>OPEN 24/7</span>
             </div>
 
             <hr className={styles.receiptDivider} />
@@ -219,7 +283,7 @@ function ContactContent({ layer }) {
             <div className={styles.totalsRow}><span>MESSAGES</span><span>UNLIMITED</span></div>
             <div className={styles.totalsRow}><span>RESPONSE TIME</span><span>FAST</span></div>
             <div className={`${styles.totalsRow} ${styles.grandTotal}`}>
-              <span>VIBE CHECK</span><span>✓ PASSED</span>
+              <span>TABLE RATING</span><span>★★★★★</span>
             </div>
 
             <hr className={styles.receiptDivider} />
@@ -241,7 +305,7 @@ function ContactContent({ layer }) {
               <span style={{ height: '60%' }} /><span style={{ height: '85%' }} />
               <span style={{ height: '30%' }} /><span style={{ height: '100%' }} />
             </div>
-            <p className={styles.receiptId}>NO REFUNDS · NO RETURNS · ALL VIBES FINAL</p>
+            <p className={styles.receiptId}>NO REFUNDS · NO RETURNS</p>
 
           </div>
         </div>
