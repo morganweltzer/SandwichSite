@@ -3,123 +3,254 @@ import { motion } from 'framer-motion'
 import { layers } from '../data/layers'
 import styles from './LayerPage.module.css'
 
-function LayerContent({ layer }) {
-  const { content } = layer
-  if (!content) return null
+const navigableLayers = layers.filter(l => !l.isBread)
 
-  if (content.type === 'projects') {
-    return (
-      <>
-        <p className={styles.sectionLabel}>Selected Work</p>
-        <div className={styles.projectsGrid}>
-          {content.items.map((item, i) => (
-            <motion.div
-              key={item.title}
-              className={styles.projectCard}
-              style={{ '--accent': layer.accentColor }}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.45 + i * 0.1 }}
-            >
-              <div className={styles.projectTitle}>{item.title}</div>
-              <div className={styles.projectDesc}>{item.desc}</div>
-            </motion.div>
+function ProjectsContent({ layer }) {
+  const { content } = layer
+  return (
+    <div className={styles.menuBoardWrap}>
+      <div className={styles.menuBoardHeader}>
+        <div className={styles.menuBoardEyebrow}>Est. 2001</div>
+        <div className={styles.menuBoardTitle}>Today's Specials</div>
+        <div className={styles.menuBoardSub}>· All items made fresh to order ·</div>
+      </div>
+      <div className={styles.menuItems}>
+        {content.items.map((item, i) => (
+          <motion.div
+            key={item.title}
+            className={styles.menuItem}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.45 + i * 0.1 }}
+          >
+            <div className={styles.menuItemTop}>
+              <span className={styles.menuItemNum}>{String(i + 1).padStart(2, '0')}</span>
+              <span className={styles.menuItemName}>{item.title}</span>
+              <span
+                className={styles.menuItemBadge}
+                style={{ background: layer.accentColor, color: layer.textColor }}
+              >
+                Chef's Pick
+              </span>
+            </div>
+            <p className={styles.menuItemDesc}>{item.desc}</p>
+            {item.tech && (
+              <div className={styles.menuItemFooter}>
+                <span className={styles.menuServedWith}>Served with</span>
+                {item.tech.map(t => (
+                  <span key={t} className={styles.menuTechTag}>{t}</span>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function AboutContent({ layer }) {
+  const { content } = layer
+  return (
+    <div className={styles.staffCardWrap}>
+      <motion.div
+        className={styles.staffCard}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.42 }}
+      >
+        <div
+          className={styles.staffCardTop}
+          style={{ background: layer.accentColor, color: layer.textColor }}
+        >
+          <span className={styles.staffLabel}>Employee Profile</span>
+          <span className={styles.staffId}>ID #001</span>
+        </div>
+        <div className={styles.staffPunchHole} />
+        <div className={styles.staffMain}>
+          <div className={styles.staffName}>Morgan Weltzer</div>
+          <div className={styles.staffRole}>Designer & Developer</div>
+          <hr className={styles.staffDivider} />
+          <p className={styles.staffBio}>{content.bio}</p>
+        </div>
+        <div className={styles.staffFooter}>
+          <div className={styles.staffBarcode} aria-hidden="true">
+            <span style={{ height: '60%' }} /><span style={{ height: '100%' }} />
+            <span style={{ height: '40%' }} /><span style={{ height: '80%' }} />
+            <span style={{ height: '55%' }} /><span style={{ height: '100%' }} />
+            <span style={{ height: '30%' }} /><span style={{ height: '90%' }} />
+            <span style={{ height: '65%' }} /><span style={{ height: '45%' }} />
+            <span style={{ height: '100%' }} /><span style={{ height: '35%' }} />
+            <span style={{ height: '75%' }} /><span style={{ height: '50%' }} />
+            <span style={{ height: '95%' }} /><span style={{ height: '40%' }} />
+            <span style={{ height: '60%' }} /><span style={{ height: '85%' }} />
+          </div>
+          <p className={styles.staffBarcodeLabel}>VALID: ALWAYS · AUTHORIZED: EVERYWHERE</p>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+function ContactContent({ layer }) {
+  const { content } = layer
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.45 }}
+    >
+      <div className={styles.receiptBgBox}>
+        <div className={styles.receiptWrap}>
+          <div className={styles.receiptPaper}>
+
+            <div className={styles.dinerName}>Thank You!</div>
+            <p className={styles.dinerTagline}>— HAND CRAFTED · FULL STACK —</p>
+            <p className={styles.dinerAddress}>Come back again</p>
+
+            <hr className={styles.receiptDivider} />
+
+            <div className={styles.metaRow}>
+              <span>CONTACT CARD</span><span>TABLE FOR 1</span>
+            </div>
+            <div className={styles.metaRow}>
+              <span>09/07/2001</span><span>OPEN 24/7</span>
+            </div>
+
+            <hr className={styles.receiptDivider} />
+
+            <div className={styles.receiptItems}>
+              <div className={styles.itemRow}>
+                <span className={styles.itemQty}>1</span>
+                <span className={styles.itemName}>
+                  <a href={`mailto:${content.email}`} className={styles.receiptLink}>EMAIL</a>
+                </span>
+                <span className={styles.itemPrice}>ON THE HOUSE</span>
+              </div>
+              <div className={styles.itemNote}>{content.email}</div>
+
+              {content.links.map((link) => (
+                <div key={link.label} className={styles.itemRow}>
+                  <span className={styles.itemQty}>1</span>
+                  <span className={styles.itemName}>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" className={styles.receiptLink}>
+                      {link.label.toUpperCase()}
+                    </a>
+                  </span>
+                  <span className={styles.itemPrice}>FREE</span>
+                </div>
+              ))}
+            </div>
+
+            <hr className={styles.receiptDivider} />
+
+            <div className={styles.totalsRow}><span>MESSAGES</span><span>UNLIMITED</span></div>
+            <div className={styles.totalsRow}><span>RESPONSE TIME</span><span>FAST</span></div>
+            <div className={`${styles.totalsRow} ${styles.grandTotal}`}>
+              <span>VIBE CHECK</span><span>✓ PASSED</span>
+            </div>
+
+            <hr className={styles.receiptDivider} />
+
+            <p className={styles.thankYou}>
+              Thanks for stopping by.{' '}
+              <span className={styles.thankYouAccent}>Don't be a stranger.</span>
+            </p>
+
+            <div className={styles.barcode} aria-hidden="true">
+              <span style={{ height: '60%' }} /><span style={{ height: '100%' }} />
+              <span style={{ height: '40%' }} /><span style={{ height: '80%' }} />
+              <span style={{ height: '55%' }} /><span style={{ height: '100%' }} />
+              <span style={{ height: '30%' }} /><span style={{ height: '90%' }} />
+              <span style={{ height: '65%' }} /><span style={{ height: '45%' }} />
+              <span style={{ height: '100%' }} /><span style={{ height: '35%' }} />
+              <span style={{ height: '75%' }} /><span style={{ height: '50%' }} />
+              <span style={{ height: '95%' }} /><span style={{ height: '40%' }} />
+              <span style={{ height: '60%' }} /><span style={{ height: '85%' }} />
+              <span style={{ height: '30%' }} /><span style={{ height: '100%' }} />
+            </div>
+            <p className={styles.receiptId}>NO REFUNDS · NO RETURNS · ALL VIBES FINAL</p>
+
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function SiteDetailsContent({ layer }) {
+  const { content } = layer
+  return (
+    <div className={styles.nutritionWrap}>
+      <motion.div
+        className={styles.nutritionBox}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.42 }}
+      >
+        <div className={styles.nutritionTitle}>Site Facts</div>
+        <hr className={styles.nutritionDividerThin} />
+        <div className={styles.nutritionServing}>Serving Size: 1 Portfolio</div>
+        <hr className={styles.nutritionDividerThick} />
+        <div className={styles.nutritionPunchline}>{content.punchline}</div>
+        <hr className={styles.nutritionDividerMed} />
+        <div className={styles.nutritionDescBlock}>
+          {content.description.map((para, i) => (
+            <p key={i} className={styles.nutritionDesc}>{para}</p>
           ))}
         </div>
-      </>
-    )
-  }
-
-  if (content.type === 'about') {
-    return (
-      <>
-        <p className={styles.sectionLabel}>About Me</p>
-        <motion.p
-          className={styles.bio}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-        >
-          {content.bio}
-        </motion.p>
-      </>
-    )
-  }
-
-  if (content.type === 'contact') {
-    return (
-      <>
-        <p className={styles.sectionLabel}>Get in Touch</p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-        >
-          <a className={styles.contactEmail} href={`mailto:${content.email}`}
-            style={{ '--accent': layer.accentColor }}>
-            {content.email}
-          </a>
-          <div className={styles.socialLinks}>
-            {content.links.map((link) => (
-              <a
-                key={link.label}
-                className={styles.socialLink}
-                style={{ background: layer.accentColor, color: layer.textColor }}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.label}
-              </a>
-            ))}
+        <hr className={styles.nutritionDividerThick} />
+        <div className={styles.nutritionIngLabel}>% Daily Ingredients</div>
+        <hr className={styles.nutritionDividerThin} />
+        {content.stack.map((tech, i) => (
+          <div key={tech}>
+            <div className={styles.nutritionStackRow}>
+              <span className={styles.nutritionIngredient}>{tech}</span>
+              <span className={styles.nutritionPct}>100%</span>
+            </div>
+            {i < content.stack.length - 1 && <hr className={styles.nutritionStackDivider} />}
           </div>
-        </motion.div>
-      </>
-    )
-  }
+        ))}
+        <hr className={styles.nutritionDividerThick} />
+        <p className={styles.nutritionFooter}>
+          * Percent Daily Values based on a 2,000 calorie creative diet. Human made, AI assisted.
+        </p>
+      </motion.div>
+    </div>
+  )
+}
 
-  if (content.type === 'site-details') {
-    return (
-      <>
-        <p className={styles.sectionLabel}>About This Site</p>
-        <motion.h2
-          className={styles.punchline}
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.42 }}
-        >
-          {content.punchline}
-        </motion.h2>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-        >
-          {content.description.map((para, i) => (
-            <p key={i} className={styles.bio}>{para}</p>
-          ))}
-        </motion.div>
-        <motion.div
-          className={styles.stackList}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          {content.stack.map((tech) => (
-            <span
-              key={tech}
-              className={styles.stackTag}
-              style={{ '--accent': layer.accentColor }}
-            >
-              {tech}
-            </span>
-          ))}
-        </motion.div>
-      </>
-    )
-  }
+function LayerNav({ currentId }) {
+  const navigate = useNavigate()
+  const currentIdx = navigableLayers.findIndex(l => l.id === currentId)
+  const prev = navigableLayers[currentIdx - 1]
+  const next = navigableLayers[currentIdx + 1]
 
-  return null
+  return (
+    <div className={styles.layerNav}>
+      <div className={styles.layerNavInner}>
+        <div className={styles.layerNavSide}>
+          {prev && (
+            <button className={styles.layerNavBtn} onClick={() => navigate(`/layer/${prev.id}`)}>
+              <span className={styles.layerNavArrow}>←</span>
+              <span className={styles.layerNavName}>{prev.displayName}</span>
+            </button>
+          )}
+        </div>
+        <button className={styles.layerNavHome} onClick={() => navigate('/')}>
+          ↑ Full Sandwich
+        </button>
+        <div className={`${styles.layerNavSide} ${styles.layerNavRight}`}>
+          {next && (
+            <button className={styles.layerNavBtn} onClick={() => navigate(`/layer/${next.id}`)}>
+              <span className={styles.layerNavName}>{next.displayName}</span>
+              <span className={styles.layerNavArrow}>→</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default function LayerPage() {
@@ -140,7 +271,6 @@ export default function LayerPage() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.35 }}
     >
-      {/* Hero — the ingredient image stretched wide with a tinted overlay */}
       <div
         className={styles.hero}
         style={{ '--accent': layer.accentColor }}
@@ -153,20 +283,17 @@ export default function LayerPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
         />
-
         <div className={styles.heroOverlay} />
-
         <div className={styles.heroContent}>
           <motion.button
-            className={styles.backBtn}
+            className={styles.backTicket}
             onClick={() => navigate('/')}
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            ← Back
+            ← BACK
           </motion.button>
-
           <motion.p
             className={styles.heroSubtitle}
             initial={{ opacity: 0, y: 10 }}
@@ -175,7 +302,6 @@ export default function LayerPage() {
           >
             {layer.subtitle}
           </motion.p>
-
           <motion.h1
             className={styles.heroTitle}
             initial={{ opacity: 0, y: 16 }}
@@ -193,8 +319,13 @@ export default function LayerPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.38 }}
       >
-        <LayerContent layer={layer} />
+        {layer.content?.type === 'projects'     && <ProjectsContent layer={layer} />}
+        {layer.content?.type === 'about'        && <AboutContent layer={layer} />}
+        {layer.content?.type === 'contact'      && <ContactContent layer={layer} />}
+        {layer.content?.type === 'site-details' && <SiteDetailsContent layer={layer} />}
       </motion.div>
+
+      <LayerNav currentId={id} />
     </motion.div>
   )
 }

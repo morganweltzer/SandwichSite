@@ -1,4 +1,5 @@
 .page {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -63,154 +64,661 @@
   text-shadow: 0 2px 20px rgba(0,0,0,0.2);
 }
 
-.backBtn {
+/* ── Back button — deli ticket stub ── */
+.backTicket {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.18);
-  border: 1.5px solid rgba(255,255,255,0.4);
-  color: #fff;
-  padding: 7px 16px;
-  border-radius: 30px;
-  font-size: 13px;
-  font-weight: 600;
+  gap: 8px;
+  background: #FBF5EC;
+  border: 2px solid rgba(44, 26, 14, 0.2);
+  border-right: 2px dashed rgba(44, 26, 14, 0.3);
+  color: #2C1A0E;
+  padding: 6px 16px 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
   cursor: pointer;
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(8px);
+  transform: rotate(-1.2deg);
   margin-bottom: 28px;
-  transition: background 0.2s, transform 0.15s;
+  box-shadow: 2px 3px 0 rgba(0,0,0,0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Courier Prime', monospace;
 }
 
-.backBtn:hover {
-  background: rgba(255,255,255,0.3);
-  transform: translateX(-3px);
+.backTicket:hover {
+  transform: rotate(0deg) translateX(-3px);
+  box-shadow: 4px 5px 0 rgba(0,0,0,0.15);
 }
 
-/* ── Content ── */
+/* ── Content wrapper ── */
 .content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   max-width: 860px;
   margin: 0 auto;
-  padding: 64px 40px 80px;
+  padding: 64px 40px 48px;
   width: 100%;
 }
 
-.sectionLabel {
+/* ════════════════════════════════════════════
+   PROJECTS — diner menu board
+   ════════════════════════════════════════════ */
+.menuBoardWrap {
+  background-image: url('/picnic-pattern.png');
+  background-size: cover;
+  overflow: hidden;
+}
+
+.menuBoardHeader {
+  background: #2C1A0E;
+  color: #FBF5EC;
+  text-align: center;
+  padding: 28px 40px 24px;
+}
+
+.menuBoardEyebrow {
   font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #B08050;
+  margin-bottom: 10px;
+}
+
+.menuBoardTitle {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.menuBoardSub {
+  font-size: 13px;
+  color: rgba(251, 245, 236, 0.55);
+  margin-top: 10px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+.menuItems {
+  background: rgba(251, 245, 236, 0.93);
+  padding: 0 36px;
+}
+
+.menuItem {
+  padding: 28px 0;
+  border-bottom: 1.5px dashed rgba(44, 26, 14, 0.18);
+}
+
+.menuItem:last-child {
+  border-bottom: none;
+}
+
+.menuItemTop {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.menuItemNum {
+  font-size: 12px;
+  font-weight: 700;
+  color: #B08050;
+  letter-spacing: 1px;
+  font-family: 'Courier Prime', monospace;
+  flex-shrink: 0;
+}
+
+.menuItemName {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #2C1A0E;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.menuItemBadge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.menuItemDesc {
+  font-size: 15px;
+  color: #7A5C3A;
+  line-height: 1.65;
+  margin-left: 34px;
+  margin-bottom: 14px;
+}
+
+.menuItemFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-left: 34px;
+}
+
+.menuServedWith {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #B08050;
+}
+
+.menuTechTag {
+  background: rgba(44, 26, 14, 0.06);
+  color: #2C1A0E;
+  border: 1px solid rgba(44, 26, 14, 0.14);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ════════════════════════════════════════════
+   ABOUT — staff ID card
+   ════════════════════════════════════════════ */
+.staffCardWrap {
+  background-image: url('/picnic-pattern.png');
+  background-size: cover;
+  padding: 48px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.staffCard {
+  background: #FBF5EC;
+  max-width: 500px;
+  width: 100%;
+  box-shadow:
+    0 4px 0 rgba(44, 26, 14, 0.14),
+    0 10px 28px rgba(0, 0, 0, 0.12);
+  border: 1.5px solid rgba(44, 26, 14, 0.1);
+  overflow: hidden;
+}
+
+.staffCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+}
+
+.staffLabel {
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #B08050;
-  margin-bottom: 28px;
 }
 
-/* Projects */
-.projectsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
-}
-
-.projectCard {
-  background: #fff;
-  border-radius: 14px;
-  padding: 26px 22px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-  border: 1.5px solid rgba(0,0,0,0.06);
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border-top: 3px solid var(--accent);
-}
-
-.projectCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.1);
-}
-
-.projectTitle {
-  font-size: 17px;
+.staffId {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
   font-weight: 700;
-  margin-bottom: 8px;
+  opacity: 0.75;
+}
+
+.staffPunchHole {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #FBF5EC;
+  border: 2px dashed rgba(44, 26, 14, 0.18);
+  margin: 18px auto 0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.staffMain {
+  padding: 18px 28px 24px;
+}
+
+.staffName {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  text-transform: uppercase;
   color: #2C1A0E;
 }
 
-.projectDesc {
-  font-size: 14px;
-  color: #7A5C3A;
-  line-height: 1.6;
+.staffRole {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #B08050;
+  margin-top: 10px;
 }
 
-/* About */
-.bio {
-  font-size: clamp(18px, 2.5vw, 26px);
+.staffDivider {
+  border: none;
+  border-top: 1.5px dashed rgba(44, 26, 14, 0.18);
+  margin: 20px 0;
+}
+
+.staffBio {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #3A2510;
+}
+
+.staffFooter {
+  background: rgba(44, 26, 14, 0.04);
+  border-top: 1.5px dashed rgba(44, 26, 14, 0.14);
+  padding: 14px 28px 16px;
+}
+
+.staffBarcode {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 28px;
+  margin-bottom: 6px;
+}
+
+.staffBarcode span {
+  background: #2C1A0E;
+  width: 2px;
+  opacity: 0.65;
+  display: block;
+}
+
+.staffBarcodeLabel {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: rgba(44, 26, 14, 0.38);
+  text-transform: uppercase;
+}
+
+/* ════════════════════════════════════════════
+   CONTACT — receipt (unchanged)
+   ════════════════════════════════════════════ */
+.receiptBgBox {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 20px 50px;
+  background-image: url('/picnic-pattern.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.receiptWrap {
+  --paper: #faf6ea;
+  --ink: #2c2a26;
+  --ink-faded: #847c6e;
+  --stamp: #b5402f;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  transform: rotate(-1.4deg);
+  filter:
+    drop-shadow(0 18px 26px rgba(0,0,0,0.16))
+    drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+}
+
+.receiptPaper {
+  position: relative;
+  background: var(--paper);
+  background-image:
+    radial-gradient(ellipse at top left, rgba(0,0,0,0.025), transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(0,0,0,0.03), transparent 55%);
+  color: var(--ink);
+  padding: 36px 26px 30px;
+  font-family: 'Courier Prime', monospace;
+  clip-path: polygon(
+    0.0% 0.0%, 7.14% 3.0%, 14.29% 0.0%, 21.43% 3.0%, 28.57% 0.0%,
+    35.71% 3.0%, 42.86% 0.0%, 50.0% 3.0%, 57.14% 0.0%, 64.29% 3.0%,
+    71.43% 0.0%, 78.57% 3.0%, 85.71% 0.0%, 92.86% 3.0%, 100.0% 0.0%,
+    100.0% 100.0%, 92.86% 97.0%, 85.71% 100.0%, 78.57% 97.0%, 71.43% 100.0%,
+    64.29% 97.0%, 57.14% 100.0%, 50.0% 97.0%, 42.86% 100.0%, 35.71% 97.0%,
+    28.57% 100.0%, 21.43% 97.0%, 14.29% 100.0%, 7.14% 97.0%, 0.0% 100.0%
+  );
+}
+
+.receiptPaper::after {
+  content: "";
+  position: absolute;
+  top: 3%; bottom: 3%;
+  left: 50%;
+  width: 1px;
+  background: rgba(0,0,0,0.05);
+  pointer-events: none;
+}
+
+.dinerName {
+  font-family: 'Special Elite', monospace;
+  font-size: 26px;
+  text-align: center;
+  letter-spacing: 1px;
+  margin: 6px 0 4px;
+}
+
+.dinerTagline,
+.dinerAddress {
+  text-align: center;
+  font-size: 11px;
+  color: var(--ink-faded);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.receiptDivider {
+  border: none;
+  border-top: 1.5px dashed var(--ink-faded);
+  opacity: 0.55;
+  margin: 16px 0;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin: 3px 0;
+}
+
+.metaRow span:last-child {
+  color: var(--ink-faded);
+}
+
+.receiptItems {
+  margin: 4px 0;
+}
+
+.itemRow {
+  display: flex;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+.itemQty {
+  width: 22px;
+  flex-shrink: 0;
+  color: var(--ink-faded);
+}
+
+.itemName {
+  flex: 1;
+  padding-right: 8px;
+}
+
+.itemPrice {
+  flex-shrink: 0;
+  text-align: right;
+  min-width: 50px;
+  color: var(--ink-faded);
+  font-size: 11px;
+}
+
+.itemNote {
+  font-size: 11px;
+  color: var(--ink-faded);
+  padding-left: 22px;
+  margin-top: -4px;
+}
+
+.receiptLink {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color 0.15s;
+}
+
+.receiptLink:hover {
+  color: var(--stamp);
+}
+
+.totalsRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin: 5px 0;
+}
+
+.grandTotal {
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.thankYou {
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  margin: 18px 0 4px;
+}
+
+.thankYouAccent {
+  color: var(--stamp);
+  font-style: italic;
+}
+
+.barcode {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  height: 38px;
+  margin: 18px 0 10px;
+}
+
+.barcode span {
+  background: var(--ink);
+  width: 2px;
+  opacity: 0.8;
+  display: block;
+}
+
+.receiptId {
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--ink-faded);
+}
+
+/* ════════════════════════════════════════════
+   SITE DETAILS — nutrition facts label
+   ════════════════════════════════════════════ */
+.nutritionWrap {
+  background-image: url('/picnic-pattern.png');
+  background-size: cover;
+  padding: 48px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.nutritionBox {
+  background: #FBF5EC;
+  border: 3px solid #2C1A0E;
+  max-width: 540px;
+  width: 100%;
+  padding: 14px 18px;
+  box-shadow:
+    0 4px 0 rgba(44, 26, 14, 0.12),
+    0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.nutritionTitle {
+  font-size: clamp(40px, 6vw, 60px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: #2C1A0E;
+}
+
+.nutritionDividerThin {
+  border: none;
+  border-top: 1px solid #2C1A0E;
+  margin: 6px 0;
+}
+
+.nutritionDividerMed {
+  border: none;
+  border-top: 5px solid #2C1A0E;
+  margin: 8px 0;
+}
+
+.nutritionDividerThick {
+  border: none;
+  border-top: 12px solid #2C1A0E;
+  margin: 8px 0;
+}
+
+.nutritionServing {
+  font-size: 13px;
+  color: #2C1A0E;
+  margin: 4px 0 2px;
+}
+
+.nutritionPunchline {
+  font-size: clamp(17px, 2.5vw, 24px);
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  color: #2C1A0E;
+  line-height: 1.25;
+  margin: 8px 0;
+}
+
+.nutritionDescBlock {
+  margin: 6px 0;
+}
+
+.nutritionDesc {
+  font-size: 13px;
   line-height: 1.65;
   color: #2C1A0E;
-  max-width: 640px;
 }
 
-/* Contact */
-.contactEmail {
-  display: inline-block;
-  font-size: 22px;
+.nutritionDesc + .nutritionDesc {
+  margin-top: 10px;
+}
+
+.nutritionIngLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2C1A0E;
+  margin: 6px 0 2px;
+}
+
+.nutritionStackRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+}
+
+.nutritionIngredient {
+  font-size: 14px;
   font-weight: 700;
   color: #2C1A0E;
-  text-decoration: none;
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 3px;
-  margin-bottom: 28px;
 }
 
-.socialLinks {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.socialLink {
-  display: inline-block;
-  padding: 9px 22px;
-  border-radius: 30px;
+.nutritionPct {
   font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  transition: opacity 0.2s, transform 0.15s;
-}
-
-.socialLink:hover {
-  opacity: 0.8;
-  transform: translateY(-2px);
-}
-
-/* Site details */
-.punchline {
-  font-size: clamp(24px, 4vw, 38px);
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+  font-weight: 900;
   color: #2C1A0E;
-  max-width: 640px;
-  margin-bottom: 28px;
 }
 
-.bio + .bio {
-  margin-top: 18px;
+.nutritionStackDivider {
+  border: none;
+  border-top: 1px solid rgba(44, 26, 14, 0.14);
 }
 
-.stackList {
+.nutritionFooter {
+  font-size: 10px;
+  color: rgba(44, 26, 14, 0.55);
+  line-height: 1.55;
+  margin-top: 6px;
+}
+
+/* ════════════════════════════════════════════
+   LAYER NAVIGATION
+   ════════════════════════════════════════════ */
+.layerNav {
+  border-top: 1.5px solid rgba(44, 26, 14, 0.1);
+  padding: 24px 40px 32px;
+  background: #FBF5EC;
+}
+
+.layerNavInner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.layerNavSide {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 28px;
 }
 
-.stackTag {
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  color: var(--accent);
-  border: 1.5px solid color-mix(in srgb, var(--accent) 35%, transparent);
-  padding: 6px 16px;
+.layerNavRight {
+  justify-content: flex-end;
+}
+
+.layerNavBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+  color: #2C1A0E;
+  transition: opacity 0.2s;
+}
+
+.layerNavBtn:hover {
+  opacity: 0.55;
+}
+
+.layerNavArrow {
+  font-size: 20px;
+  color: #B08050;
+  line-height: 1;
+}
+
+.layerNavName {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2C1A0E;
+}
+
+.layerNavHome {
+  background: #2C1A0E;
+  color: #FBF5EC;
+  border: none;
+  cursor: pointer;
+  padding: 10px 22px;
   border-radius: 30px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.layerNavHome:hover {
+  background: #B08050;
+  transform: scale(1.04);
 }

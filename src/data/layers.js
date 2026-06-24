@@ -20,9 +20,9 @@ export const layers = [
     content: {
       type: 'projects',
       items: [
-        { title: 'Project Alpha', desc: 'A web app that does something cool' },
-        { title: 'Project Beta', desc: 'A tool that solves a real problem' },
-        { title: 'Project Gamma', desc: 'An experiment that became something' },
+        { title: 'Project Alpha', desc: 'A web app that does something cool', tech: ['React', 'Node', 'Postgres'] },
+        { title: 'Project Beta', desc: 'A tool that solves a real problem', tech: ['Python', 'FastAPI', 'Docker'] },
+        { title: 'Project Gamma', desc: 'An experiment that became something', tech: ['Three.js', 'WebGL', 'Vite'] },
       ],
     },
   },
@@ -51,11 +51,11 @@ export const layers = [
     labelTopPct: 45,
     content: {
       type: 'contact',
-      email: 'hello@example.com',
+      email: 'weltzerme@gmail.com',
       links: [
-        { label: 'GitHub', url: '#' },
-        { label: 'LinkedIn', url: '#' },
-        { label: 'Twitter', url: '#' },
+        { label: 'GitHub', url: 'https://github.com/morganweltzer' },
+        { label: 'LinkedIn', url: 'https://www.linkedin.com/in/morgan-weltzer-0321271a2' },
+        { label: 'Extra Cheese', url: '#' },
       ],
     },
   },
