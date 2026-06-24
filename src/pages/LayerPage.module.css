@@ -200,6 +200,24 @@
   margin-bottom: 14px;
 }
 
+.menuItemLink {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-left: 34px;
+  margin-bottom: 14px;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.menuItemLink:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 .menuItemFooter {
   display: flex;
   align-items: center;
@@ -721,4 +739,147 @@
 .layerNavHome:hover {
   background: #B08050;
   transform: scale(1.04);
+}
+
+/* ════════════════════════════════════════════
+   CHEDDAR MODAL — secret menu popup
+   ════════════════════════════════════════════ */
+.receiptLinkBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Courier Prime', monospace;
+  font-size: inherit;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  transition: color 0.15s;
+}
+
+.receiptLinkBtn:hover {
+  color: var(--stamp);
+}
+
+.cheddarOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 4, 0.72);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cheddarCard {
+  background: #faf6ea;
+  font-family: 'Courier Prime', monospace;
+  color: #2c2a26;
+  max-width: 340px;
+  width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.cheddarHeader {
+  padding: 20px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.cheddarEyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.cheddarTitle {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.cheddarSubhead {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.cheddarBody {
+  padding: 24px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cheddarPhoto {
+  width: 100%;
+  max-width: 260px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 2px;
+  margin-bottom: 16px;
+  filter: sepia(10%);
+}
+
+.cheddarName {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.cheddarRole {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #847c6e;
+  margin-bottom: 12px;
+}
+
+.cheddarDivider {
+  border: none;
+  border-top: 1px dashed #c8bfaa;
+  width: 100%;
+  margin: 0 0 12px;
+}
+
+.cheddarBlurb {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #4a4438;
+  margin: 0 0 12px;
+}
+
+.cheddarNote {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #847c6e;
+  font-style: italic;
+}
+
+.cheddarClose {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-top: 1px dashed #c8bfaa;
+  padding: 14px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
 }

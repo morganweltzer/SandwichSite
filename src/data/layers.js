@@ -20,9 +20,9 @@ export const layers = [
     content: {
       type: 'projects',
       items: [
-        { title: 'Project Alpha', desc: 'A web app that does something cool', tech: ['React', 'Node', 'Postgres'] },
-        { title: 'Project Beta', desc: 'A tool that solves a real problem', tech: ['Python', 'FastAPI', 'Docker'] },
-        { title: 'Project Gamma', desc: 'An experiment that became something', tech: ['Three.js', 'WebGL', 'Vite'] },
+        { title: 'Deweys Online Ordering', desc: 'Served as one of three full-stack developers on an online ordering website for Deweys Pizza.', tech: ['React', 'C#', 'Azure', '.Net', 'mySQL'], link: 'https://order.deweyspizza.com/menu?store=clifton-oh&method=Pickup' },
+        { title: 'Music Social Media Platform', desc: 'A full-stack web app designed to share music with friends, follow other music listeners, and discover new music. Awarded second place in the University of Cincinnati Engineering Expo.', tech: ['Python', 'react', 'Azure', 'mySQL'], link: 'https://github.com/NoahGarfunkel/MusicSharingFrontEnd' },
+        { title: 'Azelo', desc: 'Served as one of two full-stack developers on a HIPPA compliant app for speech pathologists. Designed to dedicate a space for speech pathologists to keep records, documents, and communicate with their patients in a secure and easy way', tech: ['Vue.js', 'C#', 'Azure', 'mySQL'], link: 'https://azelo.app/Identity/Account/Login?ReturnUrl=%2F' },
       ],
     },
   },
@@ -47,7 +47,7 @@ export const layers = [
     image: '/contact.png',
     accentColor: '#1A6632',
     textColor: '#fff',
-    subtitle: 'Say hello',
+    subtitle: 'Lettuce get connected',
     labelTopPct: 45,
     content: {
       type: 'contact',
@@ -55,7 +55,7 @@ export const layers = [
       links: [
         { label: 'GitHub', url: 'https://github.com/morganweltzer' },
         { label: 'LinkedIn', url: 'https://www.linkedin.com/in/morgan-weltzer-0321271a2' },
-        { label: 'Extra Cheese', url: '#' },
+        { label: 'Extra Cheese', modal: 'cheddar' },
       ],
     },
   },

@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { layers } from '../data/layers'
 import styles from './LayerPage.module.css'
 
@@ -34,6 +35,17 @@ function ProjectsContent({ layer }) {
               </span>
             </div>
             <p className={styles.menuItemDesc}>{item.desc}</p>
+            {item.link && (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.menuItemLink}
+                style={{ color: layer.accentColor }}
+              >
+                View Project →
+              </a>
+            )}
             {item.tech && (
               <div className={styles.menuItemFooter}>
                 <span className={styles.menuServedWith}>Served with</span>
@@ -92,9 +104,63 @@ function AboutContent({ layer }) {
   )
 }
 
+function CheddarModal({ onClose, accentColor, textColor }) {
+  return (
+    <motion.div
+      className={styles.cheddarOverlay}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className={styles.cheddarCard}
+        initial={{ opacity: 0, scale: 0.92, y: 28 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.92, y: 28 }}
+        transition={{ duration: 0.28 }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div className={styles.cheddarHeader} style={{ background: accentColor, color: textColor }}>
+          <span className={styles.cheddarEyebrow}>· Secret Menu ·</span>
+          <span className={styles.cheddarTitle}>Extra Cheese</span>
+          <span className={styles.cheddarSubhead}>Available while supplies last</span>
+        </div>
+        <div className={styles.cheddarBody}>
+          <img src="/Cheddar-Picture.jpg" alt="Cheddar the Corgi" className={styles.cheddarPhoto} />
+          <div className={styles.cheddarName}>Cheddar</div>
+          <div className={styles.cheddarRole}>Sous Chef · Head of Security · Good Boy</div>
+          <hr className={styles.cheddarDivider} />
+          <p className={styles.cheddarBlurb}>
+            Our most requested secret ingredient. My welsh corgi who specializes with late-night zoomies and scaring off neighborhood squirrels.
+            Pairs well with absolutely everything.
+          </p>
+          <p className={styles.cheddarNote}>⚠ Not available for delivery. In-person visits only.</p>
+        </div>
+        <button className={styles.cheddarClose} onClick={onClose} style={{ color: accentColor }}>
+          — Close Tab —
+        </button>
+      </motion.div>
+    </motion.div>
+  )
+}
+
 function ContactContent({ layer }) {
   const { content } = layer
+  const [showCheddar, setShowCheddar] = useState(false)
+
   return (
+    <>
+    <AnimatePresence>
+      {showCheddar && (
+        <CheddarModal
+          onClose={() => setShowCheddar(false)}
+          accentColor={layer.accentColor}
+          textColor={layer.textColor}
+        />
+      )}
+    </AnimatePresence>
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
@@ -133,9 +199,15 @@ function ContactContent({ layer }) {
                 <div key={link.label} className={styles.itemRow}>
                   <span className={styles.itemQty}>1</span>
                   <span className={styles.itemName}>
-                    <a href={link.url} target="_blank" rel="noopener noreferrer" className={styles.receiptLink}>
-                      {link.label.toUpperCase()}
-                    </a>
+                    {link.modal === 'cheddar' ? (
+                      <button className={styles.receiptLinkBtn} onClick={() => setShowCheddar(true)}>
+                        {link.label.toUpperCase()}
+                      </button>
+                    ) : (
+                      <a href={link.url} target="_blank" rel="noopener noreferrer" className={styles.receiptLink}>
+                        {link.label.toUpperCase()}
+                      </a>
+                    )}
                   </span>
                   <span className={styles.itemPrice}>FREE</span>
                 </div>
@@ -175,6 +247,7 @@ function ContactContent({ layer }) {
         </div>
       </div>
     </motion.div>
+    </>
   )
 }
 
