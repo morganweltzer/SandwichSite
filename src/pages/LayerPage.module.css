@@ -399,6 +399,26 @@
   margin-bottom: 0;
 }
 
+.staffDownload {
+  display: block;
+  text-align: center;
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px;
+  border-top: 1.5px dashed rgba(44, 26, 14, 0.18);
+  border-bottom: 1.5px dashed rgba(44, 26, 14, 0.18);
+  transition: opacity 0.15s, letter-spacing 0.2s;
+}
+
+.staffDownload:hover {
+  opacity: 0.7;
+  letter-spacing: 3.5px;
+}
+
 .staffFooter {
   background: rgba(44, 26, 14, 0.04);
   border-top: 1.5px dashed rgba(44, 26, 14, 0.14);

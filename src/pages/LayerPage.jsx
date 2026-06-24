@@ -149,6 +149,14 @@ function AboutContent({ layer }) {
             </>
           )}
         </div>
+        <a
+          href="/Morgan Weltzer 2026.pdf"
+          download
+          className={styles.staffDownload}
+          style={{ borderColor: layer.accentColor, color: layer.accentColor }}
+        >
+          ↓ DOWNLOAD EMPLOYEE FILE
+        </a>
         <div className={styles.staffFooter}>
           <div className={styles.staffBarcode} aria-hidden="true">
             <span style={{ height: '60%' }} /><span style={{ height: '100%' }} />
