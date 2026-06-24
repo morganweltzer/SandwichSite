@@ -977,6 +977,7 @@
 @media (max-width: 640px) {
   .hero {
     height: 240px;
+    overflow: hidden;
   }
 
   .heroContent {
@@ -998,7 +999,7 @@
 
   .staffEntryTop {
     flex-direction: column;
-    gap: 2px;
+    gap: 8px;
     align-items: flex-start;
   }
 
@@ -1026,10 +1027,11 @@
   .receiptBgBox {
     padding: 16px 12px;
     width: 100%;
+    overflow: hidden;
   }
 
   .receiptWrap {
-    transform: rotate(-0.5deg);
+    transform: none;
   }
 
   /* Nutrition */
@@ -1040,6 +1042,13 @@
   /* Layer nav */
   .layerNav {
     padding: 16px 16px 24px;
+  }
+
+  .layerNavBtn {
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
   }
 
   .layerNavName {

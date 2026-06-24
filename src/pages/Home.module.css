@@ -130,7 +130,8 @@
   }
 
   .sandwich {
-    zoom: 0.65;
+    transform: scale(0.65);
+    transform-origin: top center;
   }
 
   /* Labels are hover-only — hide on touch devices */
