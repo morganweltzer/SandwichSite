@@ -119,4 +119,23 @@
   height: 68px;           /* fallback; overridden inline */
   pointer-events: auto;
   cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .page {
+    padding: 40px 20px;
+    gap: 20px;
+  }
+
+  .sandwich {
+    transform: scale(0.65);
+    transform-origin: top center;
+  }
+
+  /* Labels are hover-only — hide on touch devices */
+  .labelTag {
+    display: none;
+  }
 }
