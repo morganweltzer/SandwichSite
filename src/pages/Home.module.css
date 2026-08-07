@@ -44,6 +44,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* The layer artwork is consistently drawn ~22px right-of-center within its
+     own canvas (across all 6 PNGs), so the box itself being centered still
+     looks visually off. Shift the whole unit left to compensate. */
+  transform: translateX(-22px);
 }
 
 /* ── Layer wrapper ── */
@@ -130,7 +134,9 @@
   }
 
   .sandwich {
-    transform: scale(0.65);
+    /* translateX applied inner-most (rightmost) so the recentering shift
+       scales down together with the 0.65 shrink, staying proportional. */
+    transform: scale(0.65) translateX(-22px);
     transform-origin: top center;
   }
 

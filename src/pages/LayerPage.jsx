@@ -1,10 +1,32 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { layers } from '../data/layers'
 import styles from './LayerPage.module.css'
 
 const navigableLayers = layers.filter(l => !l.isBread)
+
+const easeInOutCubic = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+
+// Native `scrollTo({ behavior: 'smooth' })` is fast (~300ms) and its easing
+// isn't controllable, so we drive the scroll ourselves for a slower, eased feel.
+function animateScrollTo(targetY, duration = 1600) {
+  const startY = window.scrollY
+  const diff = targetY - startY
+  if (diff === 0) return () => {}
+
+  const startTime = performance.now()
+  let rafId
+
+  function step(now) {
+    const progress = Math.min((now - startTime) / duration, 1)
+    window.scrollTo(0, startY + diff * easeInOutCubic(progress))
+    if (progress < 1) rafId = requestAnimationFrame(step)
+  }
+  rafId = requestAnimationFrame(step)
+
+  return () => cancelAnimationFrame(rafId)
+}
 
 function ProjectsContent({ layer }) {
   const { content } = layer
@@ -402,6 +424,22 @@ export default function LayerPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const layer = layers.find((l) => l.id === id)
+  const heroRef = useRef(null)
+
+  // Always land at the very top first, then let the header get a beat on
+  // screen before smoothly scrolling it out of view (bottom of the header
+  // ends up flush with the top of the viewport).
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  }, [id])
+
+  useEffect(() => {
+    let cancelScroll = () => {}
+    const t = setTimeout(() => {
+      cancelScroll = animateScrollTo(heroRef.current?.offsetHeight ?? 0)
+    }, 700)
+    return () => { clearTimeout(t); cancelScroll() }
+  }, [id])
 
   if (!layer || layer.isBread) {
     navigate('/')
@@ -418,6 +456,7 @@ export default function LayerPage() {
     >
       <div
         className={styles.hero}
+        ref={heroRef}
         style={{ '--accent': layer.accentColor }}
       >
         <motion.img
