@@ -11,6 +11,7 @@ const HOVER_MB  = -374   // ~46px visible gap when spread
 const HOVER_MB_MOBILE = -345   // ~75px visible gap when spread — enough room for the per-layer titles
 const HIT_HEIGHT = 68    // height of the invisible click zone per ingredient
 const MOBILE_QUERY = '(max-width: 640px)'
+const HINT_SEEN_KEY = 'sandwichSite:hoverHintSeen'
 const EXPAND_DURATION = 550      // ms — matches the marginBottom transition below, so the
                                   // page scroll and the layer spread finish in lockstep
 const SCROLL_MARGIN = -31        // breathing room below the sandwich once scrolled into view
@@ -31,6 +32,7 @@ export default function Home() {
   const [isHovered, setIsHovered] = useState(false)
   const [hoveredId, setHoveredId] = useState(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [showHint, setShowHint] = useState(false)
   const sandwichRef = useRef(null)
   const cancelScrollRef = useRef(() => {})
   const navigate = useNavigate()
@@ -45,6 +47,19 @@ export default function Home() {
 
   useEffect(() => () => cancelScrollRef.current(), [])
 
+  // First-ever-visit hint, desktop only — "dig in" nudge pointing at the
+  // sandwich. Reading matchMedia directly here (rather than the isMobile
+  // state) avoids a render-order race on mount; localStorage is written
+  // immediately so it never shows again after this first render, whether
+  // or not the visitor actually hovers.
+  useEffect(() => {
+    const isDesktop = !window.matchMedia(MOBILE_QUERY).matches
+    if (isDesktop && !window.localStorage.getItem(HINT_SEEN_KEY)) {
+      setShowHint(true)
+      window.localStorage.setItem(HINT_SEEN_KEY, '1')
+    }
+  }, [])
+
   // Fires the instant the hover/tap starts — computed once, up front, rather
   // than measured every animation frame (which caused the choppiness: forcing
   // a synchronous layout read on every tick of the spread animation). The
@@ -54,6 +69,7 @@ export default function Home() {
   // top stays put (no scroll) whenever the sandwich already fits on screen.
   const handleExpandStart = () => {
     setIsHovered(true)
+    setShowHint(false)
     cancelScrollRef.current()
 
     const el = sandwichRef.current
@@ -95,6 +111,55 @@ export default function Home() {
       </motion.div>
 
       <div className={styles.scene}>
+        <AnimatePresence>
+          {showHint && !isMobile && (
+            <motion.div
+              className={styles.hoverHint}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8, transition: { duration: 0.25 } }}
+              transition={{ duration: 0.4, delay: 1 }}
+            >
+              <motion.div
+                animate={{ y: [0, -7, 0] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
+              >
+                <p className={styles.hoverHintText}>
+                  Not your average hamburger menu.
+                  <br />
+                  Hover over me to dig in.
+                </p>
+                <svg
+                  className={styles.hoverHintArrow}
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                >
+                  <motion.path
+                    d="M108,14 C72,-6 34,10 42,40 C49,66 78,64 70,42 C64,25 36,26 26,48 C15,72 20,90 6,102"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1, ease: 'easeInOut', delay: 1.3 }}
+                  />
+                  <motion.path
+                    d="M6,102 L20,98 M6,102 L13,116"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2, delay: 2.3 }}
+                  />
+                </svg>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div
           ref={sandwichRef}
           className={styles.sandwich}

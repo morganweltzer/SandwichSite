@@ -33,9 +33,44 @@
 }
 
 .scene {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+}
+
+/* ── First-visit hint — "hover to dig in" nudge, desktop only ──
+   Anchored to the sandwich's right edge; .scene hugs its single flex
+   child's box, so left: 100% lands exactly there regardless of viewport. */
+.hoverHint {
+  position: absolute;
+  top: 6px;
+  left: calc(100% - 4px);
+  z-index: 25;
+  pointer-events: none;
+  width: 190px;
+}
+
+.hoverHintText {
+  font-family: 'Special Elite', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #7A3010;
+  transform: rotate(-2deg);
+  margin-bottom: 2px;
+}
+
+.hoverHintArrow {
+  display: block;
+  color: #7A3010;
+  margin-left: 6px;
+  opacity: 0.85;
+}
+
+@media (max-width: 1024px) {
+  .hoverHint {
+    display: none;
+  }
 }
 
 /* Flex column that holds layer divs + the overlay */
