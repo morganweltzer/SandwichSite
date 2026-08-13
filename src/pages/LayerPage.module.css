@@ -497,16 +497,6 @@
   );
 }
 
-.receiptPaper::after {
-  content: "";
-  position: absolute;
-  top: 3%; bottom: 3%;
-  left: 50%;
-  width: 1px;
-  background: rgba(0,0,0,0.05);
-  pointer-events: none;
-}
-
 .dinerName {
   font-family: 'Special Elite', monospace;
   font-size: 26px;
