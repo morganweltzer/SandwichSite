@@ -1,0 +1,992 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FBF5EC;
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  width: 100%;
+  padding: 60px 48px 56px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent) 92%, black) 0%,
+    var(--accent) 100%
+  );
+}
+
+.heroContent {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.heroSubtitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 10px;
+}
+
+.heroTitle {
+  font-size: clamp(40px, 7vw, 72px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 18px;
+}
+
+.heroIntro {
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 24px;
+}
+
+.liveLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: #2C1A0E;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  transition: transform 0.2s;
+}
+
+.liveLink:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Back button — deli ticket stub ── */
+.backTicket {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FBF5EC;
+  border: 2px solid rgba(44, 26, 14, 0.2);
+  border-right: 2px dashed rgba(44, 26, 14, 0.3);
+  color: #2C1A0E;
+  padding: 6px 16px 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: rotate(-1.2deg);
+  margin-bottom: 28px;
+  box-shadow: 2px 3px 0 rgba(0,0,0,0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Courier Prime', monospace;
+}
+
+.backTicket:hover {
+  transform: rotate(0deg) translateX(-3px);
+  box-shadow: 4px 5px 0 rgba(0,0,0,0.15);
+}
+
+/* ── Order tickets (challenge / objective / truth) ──
+   A carousel: the focused ticket sits full-size and centered, the other two
+   sit fully alongside it (not tucked behind), scaled down slightly, so they
+   stay both clickable and mostly visible. Position/rotation/scale for each
+   slot is driven by framer-motion (see CAROUSEL_SLOTS in the component), so
+   no CSS transform is set here — it would just fight the animated one. */
+.orderRail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100vw;
+  margin: 0 calc(-50vw + 50%);
+  padding: 40px 24px;
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+}
+
+/* ── Sub-nav: problem statement + jump-to-section menu ──
+   Sits between the hero and the order tickets, sticky so the quick nav
+   stays reachable while scrolling through the rest of the page. */
+.subNav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100vw;
+  margin: 0 calc(-50vw + 50%);
+  background: #FBF5EC;
+  border-bottom: 1px solid rgba(44, 26, 14, 0.14);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.problemBar {
+  padding: 14px 48px;
+  border-bottom: 1px solid rgba(44, 26, 14, 0.1);
+}
+
+.problemText {
+  max-width: 860px;
+  margin: 0 auto;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5A4530;
+}
+
+.problemLabel {
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: var(--accent, #7A3010);
+  text-transform: uppercase;
+}
+
+.sectionNav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 10px 48px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sectionNav::-webkit-scrollbar {
+  display: none;
+}
+
+.sectionNavItem {
+  flex-shrink: 0;
+  background: none;
+  border: 1.5px solid rgba(44, 26, 14, 0.16);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #5A4530;
+  white-space: nowrap;
+  cursor: pointer;
+  appearance: none;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.sectionNavItem:hover {
+  border-color: var(--accent, #7A3010);
+  color: var(--accent, #7A3010);
+  background: color-mix(in srgb, var(--accent, #7A3010) 8%, transparent);
+}
+
+.ticketStack {
+  position: relative;
+  width: min(860px, 100%);
+  height: 560px;
+}
+
+.orderTicket {
+  --paper: #faf6ea;
+  --ink: #2c2a26;
+  --ink-faded: #847c6e;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -160px;
+  width: 320px;
+  height: 530px;
+  overflow: hidden;
+  background: var(--paper);
+  background-image:
+    radial-gradient(ellipse at top left, rgba(0,0,0,0.03), transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(0,0,0,0.035), transparent 55%);
+  color: var(--ink);
+  font-family: 'Courier Prime', monospace;
+  padding: 22px 20px 26px;
+  filter:
+    drop-shadow(0 14px 20px rgba(0,0,0,0.14))
+    drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+  transition: filter 0.35s;
+  clip-path: polygon(
+    0.0% 0.0%, 8.3% 3.2%, 16.7% 0.0%, 25.0% 3.2%, 33.3% 0.0%,
+    41.7% 3.2%, 50.0% 0.0%, 58.3% 3.2%, 66.7% 0.0%, 75.0% 3.2%,
+    83.3% 0.0%, 91.7% 3.2%, 100.0% 0.0%,
+    100.0% 100.0%, 91.7% 96.8%, 83.3% 100.0%, 75.0% 96.8%, 66.7% 100.0%,
+    58.3% 96.8%, 50.0% 100.0%, 41.7% 96.8%, 33.3% 100.0%, 25.0% 96.8%,
+    16.7% 100.0%, 8.3% 96.8%, 0.0% 100.0%
+  );
+}
+
+/* Receded (non-focused) tickets are actually darkened, not just faded —
+   opacity alone barely reads against the similarly-light page background. */
+.orderTicket:not([data-front]) {
+  cursor: pointer;
+  filter:
+    drop-shadow(0 14px 20px rgba(0,0,0,0.14))
+    drop-shadow(0 2px 4px rgba(0,0,0,0.08))
+    brightness(0.93) saturate(0.95);
+}
+
+.orderTicket:not([data-front]):hover {
+  filter:
+    drop-shadow(0 14px 20px rgba(0,0,0,0.14))
+    drop-shadow(0 2px 4px rgba(0,0,0,0.08))
+    brightness(0.97) saturate(1);
+}
+
+.ticketArrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(44, 26, 14, 0.2);
+  background: #FBF5EC;
+  color: #2C1A0E;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  font-family: inherit;
+}
+
+.ticketArrow:hover {
+  border-color: var(--accent, #7A3010);
+  color: var(--accent, #7A3010);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+}
+
+.ticketArrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.ticketArrowPrev {
+  left: 4px;
+}
+
+.ticketArrowNext {
+  right: 4px;
+}
+
+.ticketDots {
+  display: flex;
+  gap: 10px;
+}
+
+.ticketDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(44, 26, 14, 0.2);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.ticketDot:hover {
+  background: rgba(44, 26, 14, 0.4);
+}
+
+.ticketDot[data-active] {
+  background: var(--accent, #7A3010);
+  transform: scale(1.2);
+}
+
+.ticketHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.ticketNum {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--ink-faded);
+}
+
+.ticketStamp {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--accent, #7A3010);
+  border: 1.5px solid var(--accent, #7A3010);
+  border-radius: 3px;
+  padding: 2px 6px;
+  transform: rotate(-4deg);
+}
+
+.ticketHeading {
+  font-family: 'Special Elite', monospace;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.ticketPunch {
+  border-top: 1.5px dashed var(--ink-faded);
+  opacity: 0.55;
+  margin-bottom: 14px;
+}
+
+.ticketIntro {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-faded);
+  margin-bottom: 10px;
+}
+
+.ticketItems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.ticketItems li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.ticketItems li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 11px;
+  color: var(--accent, #7A3010);
+}
+
+/* ── Content ── */
+.content {
+  flex: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 48px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.section {
+  display: flex;
+  gap: 24px;
+}
+
+.sectionNum {
+  flex-shrink: 0;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding-top: 4px;
+}
+
+.sectionBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.sectionHeading {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #2C1A0E;
+  margin-bottom: 12px;
+}
+
+.sectionText {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5A4530;
+  margin-bottom: 20px;
+}
+
+.sectionIntro {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5A4530;
+  margin-bottom: 12px;
+}
+
+.sectionBullets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin-bottom: 4px;
+}
+
+.sectionBullets li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #5A4530;
+}
+
+.sectionBullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent, #7A3010);
+}
+
+.sectionImage {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.sectionImagePlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+  border: 2px dashed rgba(44, 26, 14, 0.2);
+  border-radius: 8px;
+  color: rgba(44, 26, 14, 0.4);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ── Mermaid diagram (Final Design) ──
+   The pan/zoom viewport itself lives in MermaidDiagram.module.css; this is
+   just the padded/bordered frame around it. */
+.diagramWrap {
+  background: #FAF6EA;
+  border: 1px solid rgba(44, 26, 14, 0.12);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* extra breathing room when a screens accordion (.compGroups) sits directly above the diagram */
+.compGroups + .diagramWrap {
+  margin-top: 28px;
+}
+
+.diagramCaption {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(44, 26, 14, 0.1);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #8a7862;
+}
+
+/* ── Subsections (e.g. Research & Exploration's sub-topics) ── */
+.subsections {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 8px;
+}
+
+.subsection {
+  padding-left: 20px;
+  border-left: 2px solid var(--accent, #7A3010);
+}
+
+.subsectionHeading {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: #2C1A0E;
+  margin-bottom: 10px;
+}
+
+/* ── Persona accordion (Tailoring the AI) ──
+   Header (label/name/meta/quote — everything above "Goal") is always
+   visible and doubles as the toggle button; the rest expands below it. */
+.personaGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.personaCard {
+  background: #fff;
+  border: 1px solid rgba(44, 26, 14, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+
+.personaCard[data-open] {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.personaHeader {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 18px 20px;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  appearance: none;
+}
+
+.personaHeader:hover .personaChevron {
+  color: color-mix(in srgb, var(--accent, #7A3010) 80%, black);
+}
+
+.personaHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.personaChevron {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent, #7A3010);
+  transition: color 0.2s;
+}
+
+.personaLabel {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--accent, #7A3010);
+  background: color-mix(in srgb, var(--accent, #7A3010) 12%, transparent);
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
+.personaName {
+  font-size: 17px;
+  font-weight: 800;
+  color: #2C1A0E;
+  margin-bottom: 2px;
+}
+
+.personaMeta {
+  display: block;
+  font-size: 12px;
+  color: #8a7862;
+  margin-bottom: 10px;
+}
+
+.personaQuote {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.6;
+  color: #5A4530;
+  border-left: 2px solid rgba(44, 26, 14, 0.15);
+  padding-left: 10px;
+  margin-bottom: 0;
+}
+
+.personaBody {
+  overflow: hidden;
+}
+
+.personaBodyInner {
+  padding: 16px 20px 20px;
+  border-top: 1px solid rgba(44, 26, 14, 0.08);
+}
+
+.personaContext {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5A4530;
+  margin-bottom: 14px;
+}
+
+.personaField {
+  margin-bottom: 12px;
+}
+
+.personaField:last-child {
+  margin-bottom: 0;
+}
+
+.personaFieldLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8a7862;
+  margin-bottom: 5px;
+}
+
+.personaFieldList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+}
+
+.personaFieldList li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5A4530;
+}
+
+.personaFieldList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent, #7A3010);
+}
+
+/* ── Image gallery + lightbox (Low-Fidelity Wireframes, Feedback & Revisions) ── */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.galleryThumb {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid rgba(44, 26, 14, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  appearance: none;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.galleryThumb:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.galleryThumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 5px;
+  background: rgba(44, 26, 14, 0.05);
+}
+
+.galleryCaption {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #5A4530;
+  text-align: left;
+}
+
+.galleryLightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px;
+  background: rgba(20, 12, 6, 0.86);
+  cursor: zoom-out;
+}
+
+.galleryLightboxImage {
+  max-width: min(900px, 100%);
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  cursor: default;
+}
+
+.galleryLightboxCaption {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.85);
+}
+
+.galleryLightboxClose {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  appearance: none;
+  transition: background 0.2s;
+}
+
+.galleryLightboxClose:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* ── Requirement accordion (MVP Functional Requirements) ── */
+.reqGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.reqCard {
+  background: #fff;
+  border: 1px solid rgba(44, 26, 14, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+
+.reqCard[data-open] {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.reqHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 16px 20px;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  appearance: none;
+}
+
+.reqNumber {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent, #7A3010);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.reqTitle {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #2C1A0E;
+}
+
+.reqCount {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #8a7862;
+}
+
+.reqChevron {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent, #7A3010);
+  transition: color 0.2s;
+}
+
+.reqHeader:hover .reqChevron {
+  color: color-mix(in srgb, var(--accent, #7A3010) 80%, black);
+}
+
+.reqBody {
+  overflow: hidden;
+}
+
+.reqBodyInner {
+  padding: 4px 20px 18px;
+  border-top: 1px solid rgba(44, 26, 14, 0.08);
+}
+
+.reqList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  margin-top: 14px;
+}
+
+.reqItem {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.reqItemId {
+  flex-shrink: 0;
+  min-width: 30px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent, #7A3010);
+}
+
+.reqItemText {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #5A4530;
+}
+
+/* ── Shared components accordion ── */
+.compGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.compCard {
+  background: #fff;
+  border: 1px solid rgba(44, 26, 14, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+
+.compCard[data-open] {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.compHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 16px 20px;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  appearance: none;
+}
+
+.compName {
+  font-size: 15px;
+  font-weight: 800;
+  color: #2C1A0E;
+}
+
+.compChevron {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent, #7A3010);
+  transition: color 0.2s;
+}
+
+.compHeader:hover .compChevron {
+  color: color-mix(in srgb, var(--accent, #7A3010) 80%, black);
+}
+
+.compBody {
+  overflow: hidden;
+}
+
+.compBodyInner {
+  padding: 14px 20px 20px;
+  border-top: 1px solid rgba(44, 26, 14, 0.08);
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .hero {
+    padding: 40px 24px 40px;
+  }
+
+  .content {
+    padding: 40px 24px 72px;
+    gap: 40px;
+  }
+
+  .section {
+    gap: 14px;
+  }
+
+  .ticketStack {
+    height: 600px;
+  }
+
+  .orderTicket {
+    width: 240px;
+    height: 570px;
+    margin-left: -120px;
+  }
+
+  .problemBar {
+    padding: 12px 24px;
+  }
+
+  .sectionNav {
+    padding: 10px 24px;
+  }
+}
