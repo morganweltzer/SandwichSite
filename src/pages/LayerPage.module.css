@@ -200,6 +200,14 @@
   margin-bottom: 14px;
 }
 
+.menuItemLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-left: 34px;
+  margin-bottom: 14px;
+}
+
 .menuItemLink {
   display: inline-block;
   font-size: 11px;
@@ -207,8 +215,6 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   text-decoration: none;
-  margin-left: 34px;
-  margin-bottom: 14px;
   opacity: 0.85;
   transition: opacity 0.15s;
 }
@@ -249,8 +255,6 @@
    ABOUT — staff ID card
    ════════════════════════════════════════════ */
 .staffCardWrap {
-  background-image: url('/picnic-pattern.png');
-  background-size: cover;
   padding: 48px 40px;
   display: flex;
   justify-content: center;
@@ -756,9 +760,13 @@
    LAYER NAVIGATION
    ════════════════════════════════════════════ */
 .layerNav {
+  position: sticky;
+  bottom: 0;
+  z-index: 50;
   border-top: 1.5px solid rgba(44, 26, 14, 0.1);
   padding: 24px 40px 32px;
   background: #FBF5EC;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.05);
 }
 
 .layerNavInner {
@@ -1018,7 +1026,7 @@
   }
 
   .menuItemDesc,
-  .menuItemLink,
+  .menuItemLinks,
   .menuItemFooter {
     margin-left: 0;
   }

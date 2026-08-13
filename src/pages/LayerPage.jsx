@@ -1,32 +1,11 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { layers } from '../data/layers'
+import { animateScrollTo } from '../utils/scroll'
 import styles from './LayerPage.module.css'
 
 const navigableLayers = layers.filter(l => !l.isBread)
-
-const easeInOutCubic = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
-
-// Native `scrollTo({ behavior: 'smooth' })` is fast (~300ms) and its easing
-// isn't controllable, so we drive the scroll ourselves for a slower, eased feel.
-function animateScrollTo(targetY, duration = 1600) {
-  const startY = window.scrollY
-  const diff = targetY - startY
-  if (diff === 0) return () => {}
-
-  const startTime = performance.now()
-  let rafId
-
-  function step(now) {
-    const progress = Math.min((now - startTime) / duration, 1)
-    window.scrollTo(0, startY + diff * easeInOutCubic(progress))
-    if (progress < 1) rafId = requestAnimationFrame(step)
-  }
-  rafId = requestAnimationFrame(step)
-
-  return () => cancelAnimationFrame(rafId)
-}
 
 function ProjectsContent({ layer }) {
   const { content } = layer
@@ -34,7 +13,7 @@ function ProjectsContent({ layer }) {
     <div className={styles.menuBoardWrap}>
       <div className={styles.menuBoardHeader}>
         <div className={styles.menuBoardEyebrow}>Est. 2001</div>
-        <div className={styles.menuBoardTitle}>Today's Specials</div>
+        <div className={styles.menuBoardTitle}>Today’s Specials</div>
         <div className={styles.menuBoardSub}>· All items made fresh to order ·</div>
       </div>
       <div className={styles.menuItems}>
@@ -53,20 +32,33 @@ function ProjectsContent({ layer }) {
                 className={styles.menuItemBadge}
                 style={{ background: layer.accentColor, color: layer.textColor }}
               >
-                Chef's Pick
+                {item.badge ?? 'Chef’s Pick'}
               </span>
             </div>
             <p className={styles.menuItemDesc}>{item.desc}</p>
-            {item.link && (
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.menuItemLink}
-                style={{ color: layer.accentColor }}
-              >
-                View Project →
-              </a>
+            {(item.link || item.designProcessLink) && (
+              <div className={styles.menuItemLinks}>
+                {item.link && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.menuItemLink}
+                    style={{ color: layer.accentColor }}
+                  >
+                    View Project →
+                  </a>
+                )}
+                {item.designProcessLink && (
+                  <Link
+                    to={item.designProcessLink}
+                    className={styles.menuItemLink}
+                    style={{ color: layer.accentColor }}
+                  >
+                    View Design Process →
+                  </Link>
+                )}
+              </div>
             )}
             {item.tech && (
               <div className={styles.menuItemFooter}>
@@ -172,7 +164,7 @@ function AboutContent({ layer }) {
           )}
         </div>
         <a
-          href="/Morgan Weltzer 2026.pdf"
+          href="/Morgan Weltzer Resume 2026.pdf"
           download
           className={styles.staffDownload}
           style={{ borderColor: layer.accentColor, color: layer.accentColor }}
@@ -227,7 +219,7 @@ function CheddarModal({ onClose, accentColor, textColor }) {
           <div className={styles.cheddarRole}>Sous Chef · Head of Security · Good Boy</div>
           <hr className={styles.cheddarDivider} />
           <p className={styles.cheddarBlurb}>
-            Our most requested secret ingredient. My welsh corgi who specializes with late-night zoomies and scaring off neighborhood squirrels.
+            Our most requested secret ingredient. My Welsh Corgi who specializes in late-night zoomies and scaring off neighborhood squirrels.
             Pairs well with absolutely everything.
           </p>
           <p className={styles.cheddarNote}>⚠ Not available for delivery. In-person visits only.</p>
@@ -303,7 +295,7 @@ function ContactContent({ layer }) {
                       </a>
                     )}
                   </span>
-                  <span className={styles.itemPrice}>FREE</span>
+                  <span className={styles.itemPrice}>{link.modal === 'cheddar' ? 'PRICELESS' : 'FREE'}</span>
                 </div>
               ))}
             </div>
@@ -320,7 +312,7 @@ function ContactContent({ layer }) {
 
             <p className={styles.thankYou}>
               Thanks for stopping by.{' '}
-              <span className={styles.thankYouAccent}>Don't be a stranger.</span>
+              <span className={styles.thankYouAccent}>Don’t be a stranger.</span>
             </p>
 
             <div className={styles.barcode} aria-hidden="true">

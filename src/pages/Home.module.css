@@ -44,10 +44,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform-origin: top center;
   /* The layer artwork is consistently drawn ~22px right-of-center within its
      own canvas (across all 6 PNGs), so the box itself being centered still
-     looks visually off. Shift the whole unit left to compensate. */
-  transform: translateX(-22px);
+     looks visually off. Shift the whole unit left to compensate.
+     The scale() shrinks the sandwich + its side labels together as the
+     window narrows, so the labels never run past the left edge of the
+     viewport on smaller desktop windows — full size again past ~1020px. */
+  transform: scale(clamp(0.65, calc(0.65 + (100vw - 640px) / 1050px), 1)) translateX(-22px);
 }
 
 /* ── Layer wrapper ── */
@@ -84,7 +88,10 @@
 /* ── Label pill + dashed line ── */
 .labelTag {
   position: absolute;
-  right: calc(100% + 10px);  /* 10px to the left of sandwich left edge */
+  right: 100%;  /* flush with the sandwich's left edge */
+  /* Scales with viewport width so the tag stays tucked in close on
+     smaller desktop windows without clipping off-screen on wide ones. */
+  margin-right: clamp(2px, 1vw, 12px);
   transform: translateY(-50%);
   display: flex;
   align-items: center;
@@ -102,11 +109,16 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+  /* Hard floor: never let the pill itself push past the viewport edge,
+     even if the sandwich-scale above hasn't shrunk enough yet. */
+  max-width: min(150px, calc(50vw - 40px));
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .labelLine {
   display: block;
-  width: 30px;
+  width: clamp(14px, 2vw, 24px);
   height: 0;
   border-top: 2px dashed var(--accent);
   opacity: 0.55;
@@ -126,6 +138,11 @@
   touch-action: manipulation;
 }
 
+/* Small per-layer title shown above each layer while expanded — mobile only */
+.mobileLayerTitle {
+  display: none;
+}
+
 /* ── Mobile ── */
 @media (max-width: 640px) {
   .page {
@@ -143,5 +160,29 @@
   /* Labels are hover-only — hide on touch devices */
   .labelTag {
     display: none;
+  }
+
+  .mobileLayerTitle {
+    display: block;
+    position: absolute;
+    /* Artwork is painted ~22px right-of-center within its own canvas (see .sandwich),
+       so center the label on the artwork, not the canvas midline. */
+    left: calc(50% + 22px);
+    transform: translate(-50%, calc(-100% - 16px));
+    z-index: 10;
+    white-space: nowrap;
+    width: 170px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-col);
+    background: var(--accent);
+    opacity: 0.85;
+    padding: 4px 12px;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+    pointer-events: none;
   }
 }

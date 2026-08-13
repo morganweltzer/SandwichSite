@@ -20,9 +20,10 @@ export const layers = [
     content: {
       type: 'projects',
       items: [
-        { title: 'Deweys Online Ordering', desc: 'Served as one of three full-stack developers on an online ordering website for Deweys Pizza.', tech: ['React', 'C#', 'Azure', '.Net', 'mySQL'], link: 'https://order.deweyspizza.com/menu?store=clifton-oh&method=Pickup' },
-        { title: 'Music Social Media Platform', desc: 'A full-stack web app designed to share music with friends, follow other music listeners, and discover new music. Awarded second place in the University of Cincinnati Engineering Expo 2024.', tech: ['Python', 'React', 'Azure', 'mySQL'], link: 'https://github.com/NoahGarfunkel/MusicSharingFrontEnd' },
-        { title: 'Azelo', desc: 'Served as one of two full-stack developers on a HIPPA compliant app for speech pathologists. Designed to dedicate a space for speech pathologists to keep records, documents, and communicate with their patients in a secure and easy way', tech: ['Vue.js', 'C#', 'Azure', 'mySQL'], link: 'https://azelo.app/Identity/Account/Login?ReturnUrl=%2F' },
+        { title: 'LUREL', badge: 'Chef’s Pick', desc: 'An interactive prototype for a budget-luxury, unbranded line of consumer packaged goods. Built AI-first with Claude as the primary development partner, from concept through a fully clickable HTML/CSS prototype.', tech: ['HTML', 'CSS', 'Claude'], link: 'https://morganweltzer.github.io/lurel.github.io/', designProcessLink: '/design-process/lurel' },
+        { title: 'Deweys Online Ordering', badge: 'House Special', desc: 'Served as one of three full-stack developers on an online ordering website for Deweys Pizza.', tech: ['React', 'C#', 'Azure', '.NET', 'MySQL'], link: 'https://order.deweyspizza.com/menu?store=clifton-oh&method=Pickup' },
+        { title: 'Music Social Media Platform', badge: 'Customer Favorite', desc: 'A full-stack web app designed to share music with friends, follow other music listeners, and discover new music. Awarded second place in the University of Cincinnati Engineering Expo 2024.', tech: ['Python', 'React', 'Azure', 'MySQL'], link: 'https://github.com/NoahGarfunkel/MusicSharingFrontEnd' },
+        { title: 'Azelo', badge: 'Made to Order', desc: 'Served as one of two full-stack developers on a HIPAA-compliant app for speech pathologists. Designed to dedicate a space for speech pathologists to keep records, documents, and communicate with their patients in a secure and easy way.', tech: ['Vue.js', 'C#', 'Azure', 'MySQL'], link: 'https://azelo.app/Identity/Account/Login?ReturnUrl=%2F' },
       ],
     },
   },
@@ -37,18 +38,19 @@ export const layers = [
     labelTopPct: 36,
     content: {
       type: 'about',
-      bio: "I'm a designer & developer who loves building things that feel alive. I care deeply about creativity, interaction, and designing applications centered around humans. ",
+      bio: 'I’m a designer & developer who loves building things that feel alive. I care deeply about creativity, interaction, and designing applications centered around humans.',
       experience: [
         {
           role: 'Senior Technical Analyst',
           company: 'AMEND Consulting — Cincinnati, OH',
           dates: 'July 2025 – Present',
           bullets: [
-            'Led discovery and delivery support for two enterprise modernization initiatives at $2B+ corporations',
+            'Led frontend engineering and UI design for an enterprise application, generating $1.7M in additional revenue',
+            'Drove discovery and delivery support for two enterprise modernization initiatives at $2B+ corporations',
+            'Led daily UAT sessions with key users ahead of go-live to instill user confidence in the application',
             'Used data analysis to drive client on-time delivery from 73% to 97%',
-            'Modernized a legacy application to create a net savings of $1.5M annually',
-            'Served as lead frontend developer and UI designer for an enterprise app modernization initiative',
-            'Built solutions in Power Apps, Power Automate, and C# with custom API integrations',
+            'Modernized a legacy application, delivering $1.5M in annual net savings while improving performance and reliability',
+            'Built solutions in C#, Power Apps, and Power Automate with custom API integrations',
             'Utilized Power BI and SQL to centralize KPI reporting and monitor rollout impact',
           ],
         },
@@ -62,6 +64,7 @@ export const layers = [
             'Built a production tracking tool improving wait time accuracy by 62%',
             'Supported a HIPAA-compliant healthcare platform serving 60+ private practices',
             'Integrated 7+ third-party APIs, enhancing product capabilities and reducing manual workflows',
+            'Led client demos and daily standups, ensuring alignment and accelerating delivery cycles',
           ],
         },
         {
@@ -70,9 +73,10 @@ export const layers = [
           dates: 'May 2022 – May 2023',
           bullets: [
             'Generated $7M in annual savings through the creation of a new user-facing feature',
-            'Served as Feature Lead for a new app page on Kroger\'s Android fulfillment app (Kotlin)',
+            'Served as Feature Lead for a new app page on Kroger’s Android fulfillment app (Kotlin)',
             'Built two UI features deployed to 2,000+ Kroger stores on the progressive web app (React)',
             'Conducted A/B testing in beta stores to create data-driven decisions on user-facing features',
+            'Wrote technical specifications, user stories, and reports to document the product lifecycle',
             'Utilized emerging generative AI to develop intelligent virtual assistants',
           ],
         },
@@ -119,10 +123,10 @@ export const layers = [
       type: 'site-details',
       punchline: 'Taking Hamburger Menus to a New Level',
       description: [
-        "Feels like developers are stuck picking a side these days: AI or human, pick one. I don't buy it. I think you can have both.",
-        "This site is kind of my proof of concept for that. I wanted to show that AI doesn't have to elbow the human stuff out - it can actually make it better. So this is a mashup: code I wrote myself, doodles I drew by hand, and a bit of AI help mixed in to keep things moving.",
-        "Honestly, I've had this idea sitting in a notebook (mental or otherwise) for a long time. I just never had the time to actually build it. That changed once I started using Claude as a kind of personal assistant. It let me speedrun through the boring parts so I could actually get to the fun, creative stuff.",
-        "So no, AI's not replacing the developer. If anything, it's just giving them more room to build the weird, personal things they've always wanted to.",
+        'Feels like developers are stuck picking a side these days: AI or human, pick one. I don’t buy it. I think you can have both.',
+        'This site is kind of my proof of concept for that. I wanted to show that AI doesn’t have to elbow the human stuff out - it can actually make it better. So this is a mashup: code I wrote myself, doodles I drew by hand, and a bit of AI help mixed in to keep things moving.',
+        'Honestly, I’ve had this idea sitting in a notebook (mental or otherwise) for a long time. I just never had the time to actually build it. That changed once I started using Claude as a kind of personal assistant. It let me speedrun through the boring parts so I could actually get to the fun, creative stuff.',
+        'So no, AI’s not replacing the developer. If anything, it’s just giving them more room to build the weird, personal things they’ve always wanted to.',
       ],
       stack: ['React', 'Framer Motion', 'Vite', 'CSS Modules'],
     },
