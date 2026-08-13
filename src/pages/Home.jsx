@@ -134,13 +134,13 @@ export default function Home() {
                 </p>
                 <svg
                   className={styles.hoverHintArrow}
-                  width="120"
-                  height="120"
-                  viewBox="0 0 120 120"
+                  width="180"
+                  height="90"
+                  viewBox="0 0 180 90"
                   fill="none"
                 >
                   <motion.path
-                    d="M108,14 C72,-6 34,10 42,40 C49,66 78,64 70,42 C64,25 36,26 26,48 C15,72 20,90 6,102"
+                    d="M170,10 C145,-6 110,4 116,22 C120,36 142,36 136,20 C132,8 110,8 100,22 C80,50 40,50 10,62"
                     stroke="currentColor"
                     strokeWidth="2.5"
                     strokeLinecap="round"
@@ -149,7 +149,7 @@ export default function Home() {
                     transition={{ duration: 1, ease: 'easeInOut', delay: 1.3 }}
                   />
                   <motion.path
-                    d="M6,102 L23,97 M6,102 L13,86"
+                    d="M10,62 L27,63 M10,62 L22,50"
                     stroke="currentColor"
                     strokeWidth="2.5"
                     strokeLinecap="round"
