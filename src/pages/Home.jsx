@@ -47,16 +47,17 @@ export default function Home() {
 
   useEffect(() => () => cancelScrollRef.current(), [])
 
-  // First-ever-visit hint, desktop only — "dig in" nudge pointing at the
-  // sandwich. Reading matchMedia directly here (rather than the isMobile
-  // state) avoids a render-order race on mount; localStorage is written
-  // immediately so it never shows again after this first render, whether
-  // or not the visitor actually hovers.
+  // First-visit-of-the-session hint, desktop only — "dig in" nudge pointing
+  // at the sandwich. sessionStorage (not localStorage) so it resets on a
+  // fresh session rather than being gone forever after the first-ever load.
+  // Reading matchMedia directly here (rather than the isMobile state) avoids
+  // a render-order race on mount; the flag is written immediately so it
+  // won't show again this session, whether or not the visitor hovers.
   useEffect(() => {
     const isDesktop = !window.matchMedia(MOBILE_QUERY).matches
-    if (isDesktop && !window.localStorage.getItem(HINT_SEEN_KEY)) {
+    if (isDesktop && !window.sessionStorage.getItem(HINT_SEEN_KEY)) {
       setShowHint(true)
-      window.localStorage.setItem(HINT_SEEN_KEY, '1')
+      window.sessionStorage.setItem(HINT_SEEN_KEY, '1')
     }
   }, [])
 
