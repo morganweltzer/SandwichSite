@@ -149,7 +149,7 @@ export default function Home() {
                     transition={{ duration: 1, ease: 'easeInOut', delay: 1.3 }}
                   />
                   <motion.path
-                    d="M6,102 L20,98 M6,102 L13,116"
+                    d="M6,102 L23,97 M6,102 L13,86"
                     stroke="currentColor"
                     strokeWidth="2.5"
                     strokeLinecap="round"

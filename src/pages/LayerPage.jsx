@@ -191,6 +191,16 @@ function AboutContent({ layer }) {
 }
 
 function CheddarModal({ onClose, accentColor, textColor }) {
+  // Locks the <html> element specifically — body's overflow-x: hidden
+  // (index.css) doesn't propagate to block actual viewport scrolling here,
+  // so body alone wouldn't stop the page scrolling behind the modal.
+  useEffect(() => {
+    const html = document.documentElement
+    const prevOverflow = html.style.overflow
+    html.style.overflow = 'hidden'
+    return () => { html.style.overflow = prevOverflow }
+  }, [])
+
   return (
     <motion.div
       className={styles.cheddarOverlay}
