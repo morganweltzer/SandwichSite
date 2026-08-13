@@ -23,9 +23,11 @@ function totalHeight(marginValue) {
 }
 
 // Absolute y from sandwich top where the painted ingredient center sits (hover state).
-// Each layer starts i * (420 - 374) = i * 46 px from the sandwich top.
-function getLabelY(i) {
-  return i * (IMG_HEIGHT + HOVER_MB) + (layers[i].labelTopPct / 100) * IMG_HEIGHT
+// Each layer starts i * (IMG_HEIGHT + hoverMb) px from the sandwich top — hoverMb must
+// match whatever margin is actually driving the layerWrapper spread (HOVER_MB desktop,
+// HOVER_MB_MOBILE on mobile) or the hit zones drift away from the visible ingredients.
+function getLabelY(i, hoverMb) {
+  return i * (IMG_HEIGHT + hoverMb) + (layers[i].labelTopPct / 100) * IMG_HEIGHT
 }
 
 export default function Home() {
@@ -227,7 +229,7 @@ export default function Home() {
             <AnimatePresence>
               {isHovered && layers.map((layer, i) => {
                 if (layer.isBread) return null
-                const centerY = getLabelY(i)
+                const centerY = getLabelY(i, isMobile ? HOVER_MB_MOBILE : HOVER_MB)
 
                 return (
                   <Fragment key={layer.id}>
