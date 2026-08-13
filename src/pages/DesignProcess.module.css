@@ -116,21 +116,11 @@
   background-color: #fff;
 }
 
-/* ── Sub-nav: problem statement + jump-to-section menu ──
-   Sits between the hero and the order tickets, sticky so the quick nav
-   stays reachable while scrolling through the rest of the page. */
-.subNav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
+/* ── Problem statement bar — scrolls away normally, not sticky. ── */
+.problemBar {
   width: 100vw;
   margin: 0 calc(-50vw + 50%);
   background: #FBF5EC;
-  border-bottom: 1px solid rgba(44, 26, 14, 0.14);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.problemBar {
   padding: 14px 48px;
   border-bottom: 1px solid rgba(44, 26, 14, 0.1);
 }
@@ -148,6 +138,19 @@
   letter-spacing: 0.3px;
   color: var(--accent, #7A3010);
   text-transform: uppercase;
+}
+
+/* ── Jump-to-section menu — sticky so it stays reachable while scrolling
+   through the rest of the page (the problem bar above it is not). ── */
+.sectionNavBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100vw;
+  margin: 0 calc(-50vw + 50%);
+  background: #FBF5EC;
+  border-bottom: 1px solid rgba(44, 26, 14, 0.14);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .sectionNav {
