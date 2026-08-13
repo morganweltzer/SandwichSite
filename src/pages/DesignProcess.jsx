@@ -398,45 +398,44 @@ export default function DesignProcess() {
         </div>
       </div>
 
-      {(project.problemStatement || tickets.length > 0 || contentSections.length > 0) && (
-        <div ref={navRef} className={styles.subNav} style={{ '--accent': project.accentColor }}>
-          {project.problemStatement && (
-            <div className={styles.problemBar}>
-              {(() => {
-                const [label, ...rest] = project.problemStatement.split(': ')
-                const body = rest.join(': ')
-                return (
-                  <p className={styles.problemText}>
-                    <span className={styles.problemLabel}>{label}:</span> {body}
-                  </p>
-                )
-              })()}
-            </div>
-          )}
-          {(tickets.length > 0 || contentSections.length > 0) && (
-            <nav className={styles.sectionNav} aria-label="Jump to section">
-              {tickets.map((t, i) => (
-                <button
-                  key={t.heading}
-                  type="button"
-                  className={styles.sectionNavItem}
-                  onClick={() => handleNavClick(t.heading, i)}
-                >
-                  {t.heading.replace(/^The /, '')}
-                </button>
-              ))}
-              {contentSections.map(s => (
-                <button
-                  key={s.heading}
-                  type="button"
-                  className={styles.sectionNavItem}
-                  onClick={() => handleNavClick(s.heading)}
-                >
-                  {s.heading}
-                </button>
-              ))}
-            </nav>
-          )}
+      {project.problemStatement && (
+        <div className={styles.problemBar} style={{ '--accent': project.accentColor }}>
+          {(() => {
+            const [label, ...rest] = project.problemStatement.split(': ')
+            const body = rest.join(': ')
+            return (
+              <p className={styles.problemText}>
+                <span className={styles.problemLabel}>{label}:</span> {body}
+              </p>
+            )
+          })()}
+        </div>
+      )}
+
+      {(tickets.length > 0 || contentSections.length > 0) && (
+        <div ref={navRef} className={styles.sectionNavBar} style={{ '--accent': project.accentColor }}>
+          <nav className={styles.sectionNav} aria-label="Jump to section">
+            {tickets.map((t, i) => (
+              <button
+                key={t.heading}
+                type="button"
+                className={styles.sectionNavItem}
+                onClick={() => handleNavClick(t.heading, i)}
+              >
+                {t.heading.replace(/^The /, '')}
+              </button>
+            ))}
+            {contentSections.map(s => (
+              <button
+                key={s.heading}
+                type="button"
+                className={styles.sectionNavItem}
+                onClick={() => handleNavClick(s.heading)}
+              >
+                {s.heading}
+              </button>
+            ))}
+          </nav>
         </div>
       )}
 
